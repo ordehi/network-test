@@ -2,14 +2,14 @@
 import posthog from 'posthog-js'
 import { useState } from 'react'
 
-export default function Home() {
+export default function Contact() {
   const [successMessage, setSuccessMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   
   return (
     <main className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 py-16">
-        <h1 className="text-3xl font-bold text-gray-900 text-center mb-8">Home Page</h1>
+        <h1 className="text-3xl font-bold text-gray-900 text-center mb-8">Contact Page</h1>
         
         {/* Network Testing Section */}
         <div className="bg-white rounded-lg shadow-sm p-8">
@@ -24,10 +24,10 @@ export default function Home() {
               <p className="text-gray-600 mb-4">Make a successful API call to test network capture.</p>
               <button 
                 onClick={async () => {
-                  posthog.capture('home_successful_request_clicked')
+                  posthog.capture('contact_successful_request_clicked')
                   setErrorMessage('')
                   try {
-                    const response = await fetch('/api/home')
+                    const response = await fetch('/api/contact')
                     const data = await response.json()
                     console.log('Successful request:', data)
                     setSuccessMessage(JSON.stringify(data, null, 2))
@@ -47,10 +47,17 @@ export default function Home() {
               <p className="text-gray-600 mb-4">Make a request that will fail to test error capture.</p>
               <button 
                 onClick={async () => {
-                  posthog.capture('home_failed_request_clicked')
+                  posthog.capture('contact_failed_request_clicked')
                   setSuccessMessage('')
                   try {
-                    const response = await fetch('/api/nonexistent-endpoint')
+                    const response = await fetch('/api/contact', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({ invalid: 'data' })
+                    })
+                    // This will fail because the API doesn't handle POST with body
                     const data = await response.json()
                     console.log('Unexpected success:', data)
                     setSuccessMessage('Unexpected success: ' + JSON.stringify(data, null, 2))
@@ -91,4 +98,4 @@ export default function Home() {
       </div>
     </main>
   )
-}
+} 
