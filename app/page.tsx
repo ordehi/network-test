@@ -15,7 +15,7 @@ export default function Home() {
         <div className="bg-white rounded-lg shadow-sm p-8">
           <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">Network Request Testing</h2>
           <p className="text-gray-600 text-center mb-8">
-            Test PostHog's network capture functionality with these API calls.
+            Test PostHog&apos;s network capture functionality with these API calls.
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
